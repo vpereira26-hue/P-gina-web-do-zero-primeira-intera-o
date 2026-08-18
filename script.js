@@ -1,45 +1,103 @@
-const areaInteracao = document.createElement("div");
-    areaInteracao.classList.add("interacoes");
+// --- 1. MODO ESCURO ---
+const botaoModo = document.getElementById('modo');
 
-    const botaoCurtir = document.createElement("button");
-    botaoCurtir.innerHTML = "👍 Curtir <span>0</span>";
+botaoModo.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
 
-    const botaoNaoCurtir = document.createElement("button");
-    botaoNaoCurtir.innerHTML = "👎 Não curtir <span>0</span>";
+    if (document.body.classList.contains('dark-mode')) {
+        botaoModo.textContent = '☀️ Modo Claro';
+    } else {
+        botaoModo.textContent = '🌙 Modo Escuro';
+    }
+});
 
-    const botaoComentario = document.createElement("button");
-    botaoComentario.innerHTML = "💬 Comentar";
 
-    const comentarios = document.createElement("div");
-    comentarios.classList.add("comentarios");
+// --- 2. INTERAÇÕES DOS ARTIGOS (Curtir, Não Curtir e Comentários) ---
 
-    botaoCurtir.addEventListener("click", () => {
-        const contador = botaoCurtir.querySelector("span");
-        contador.textContent = Number(contador.textContent) + 1;
-    });
+// Seleciona todos os artigos da página
+const artigos = document.querySelectorAll('.card');
 
-    botaoNaoCurtir.addEventListener("click", () => {
-        const contador = botaoNaoCurtir.querySelector("span");
-        contador.textContent = Number(contador.textContent) + 1;
-    });
+artigos.forEach(artigo => {
+    // Elementos de Curtir
+    const btnCurtir = artigo.querySelector('.btn-curtir');
+    const contadorCurtir = artigo.querySelector('.contador-curtir');
+    
+    // Elementos de Não Curtir
+    const btnNaoCurtir = artigo.querySelector('.btn-nao-curtir');
+    const contadorNaoCurtir = artigo.querySelector('.contador-nao-curtir');
 
-    botaoComentario.addEventListener("click", () => {
+    // Elementos de Comentários
+    const inputComentario = artigo.querySelector('.input-comentario');
+    const btnEnviarComentario = artigo.querySelector('.btn-enviar-comentario');
+    const listaComentarios = artigo.querySelector('.lista-comentarios');
 
-        const comentario = prompt("Digite seu comentário:");
-
-        if (comentario) {
-            const novoComentario = document.createElement("p");
-            novoComentario.innerHTML = "💬 " + comentario;
-            comentarios.appendChild(novoComentario);
+    // Lógica de Curtir
+    btnCurtir.addEventListener('click', () => {
+        let curtidas = parseInt(contadorCurtir.textContent);
+        
+        // Se já estava curtido, descurte; senão, curte
+        if (btnCurtir.classList.contains('ativo')) {
+            curtidas--;
+            btnCurtir.classList.remove('ativo');
+        } else {
+            curtidas++;
+            btnCurtir.classList.add('ativo');
+            
+            // Se o botão "não curtir" estava ativo, remove
+            if (btnNaoCurtir.classList.contains('ativo')) {
+                let naoCurtidas = parseInt(contadorNaoCurtir.textContent);
+                naoCurtidas--;
+                contadorNaoCurtir.textContent = naoCurtidas;
+                btnNaoCurtir.classList.remove('ativo');
+            }
         }
-
+        contadorCurtir.textContent = curtidas;
     });
 
-    areaInteracao.appendChild(botaoCurtir);
-    areaInteracao.appendChild(botaoNaoCurtir);
-    areaInteracao.appendChild(botaoComentario);
+    // Lógica de Não Curtir
+    btnNaoCurtir.addEventListener('click', () => {
+        let naoCurtidas = parseInt(contadorNaoCurtir.textContent);
+        
+        if (btnNaoCurtir.classList.contains('ativo')) {
+            naoCurtidas--;
+            btnNaoCurtir.classList.remove('ativo');
+        } else {
+            naoCurtidas++;
+            btnNaoCurtir.classList.add('ativo');
+            
+            // Se o botão "curtir" estava ativo, remove
+            if (btnCurtir.classList.contains('ativo')) {
+                let curtidas = parseInt(contadorCurtir.textContent);
+                curtidas--;
+                contadorCurtir.textContent = curtidas;
+                btnCurtir.classList.remove('ativo');
+            }
+        }
+        contadorNaoCurtir.textContent = naoCurtidas;
+    });
 
-    card.appendChild(areaInteracao);
-    card.appendChild(comentarios);
+    // Lógica para Adicionar Comentários
+    btnEnviarComentario.addEventListener('click', () => {
+        const textoComentario = inputComentario.value.trim();
 
+        if (textoComentario !== "") {
+            // Cria um novo elemento para o comentário
+            const novoComentario = document.createElement('div');
+            novoComentario.classList.add('comentario-item');
+            novoComentario.textContent = textoComentario;
+
+            // Adiciona o comentário na lista do artigo correspondente
+            listaComentarios.appendChild(novoComentario);
+
+            // Limpa o input
+            inputComentario.value = "";
+        }
+    });
+
+    // Permitir enviar comentário pressionando a tecla "Enter"
+    inputComentario.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            btnEnviarComentario.click();
+        }
+    });
 });
