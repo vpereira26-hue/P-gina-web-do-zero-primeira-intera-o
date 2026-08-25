@@ -1,103 +1,112 @@
-// --- 1. MODO ESCURO ---
-const botaoModo = document.getElementById('modo');
+document.addEventListener('DOMContentLoaded', () => {
 
-botaoModo.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-
-    if (document.body.classList.contains('dark-mode')) {
-        botaoModo.textContent = '☀️ Modo Claro';
-    } else {
-        botaoModo.textContent = '🌙 Modo Escuro';
+    // ========================================================
+    // 1. ALTERANAR TEMA CLARO / ESCURO
+    // ========================================================
+    const btnModo = document.getElementById('modo');
+    if (btnModo) {
+        btnModo.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            btnModo.textContent = isDark ? '☀️' : '🌙';
+        });
     }
-});
 
+    // ========================================================
+    // 2. INTERAÇÃO DOS LINKS DA NAVBAR
+    // ========================================================
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
 
-// --- 2. INTERAÇÕES DOS ARTIGOS (Curtir, Não Curtir e Comentários) ---
+    // ========================================================
+    // 3. FUNCIONALIDADES DOS CARDS (Artigos, Curtidas, Comentários)
+    // ========================================================
+    const cards = document.querySelectorAll('.card');
 
-// Seleciona todos os artigos da página
-const artigos = document.querySelectorAll('.card');
-
-artigos.forEach(artigo => {
-    // Elementos de Curtir
-    const btnCurtir = artigo.querySelector('.btn-curtir');
-    const contadorCurtir = artigo.querySelector('.contador-curtir');
-    
-    // Elementos de Não Curtir
-    const btnNaoCurtir = artigo.querySelector('.btn-nao-curtir');
-    const contadorNaoCurtir = artigo.querySelector('.contador-nao-curtir');
-
-    // Elementos de Comentários
-    const inputComentario = artigo.querySelector('.input-comentario');
-    const btnEnviarComentario = artigo.querySelector('.btn-enviar-comentario');
-    const listaComentarios = artigo.querySelector('.lista-comentarios');
-
-    // Lógica de Curtir
-    btnCurtir.addEventListener('click', () => {
-        let curtidas = parseInt(contadorCurtir.textContent);
+    cards.forEach(card => {
+        // Elementos do Card
+        const btnLerMais = card.querySelector('.btn-ler-mais');
+        const paragrafo = card.querySelector('.card-content p');
         
-        // Se já estava curtido, descurte; senão, curte
-        if (btnCurtir.classList.contains('ativo')) {
-            curtidas--;
-            btnCurtir.classList.remove('ativo');
-        } else {
-            curtidas++;
-            btnCurtir.classList.add('ativo');
+        const btnCurtir = card.querySelector('.btn-curtir');
+        const btnNaoCurtir = card.querySelector('.btn-nao-curtir');
+        const contadorCurtir = card.querySelector('.contador-curtir');
+        const contadorNaoCurtir = card.querySelector('.contador-nao-curtir');
+
+        const inputComentario = card.querySelector('.input-comentario');
+        const btnEnviar = card.querySelector('.btn-enviar-comentario');
+        const listaComentarios = card.querySelector('.lista-comentarios');
+
+        // --- Ação: Ler Mais / Ler Menos ---
+        if (btnLerMais && paragrafo) {
+            // Guarda o texto inicial do artigo
+            const textoResumido = paragrafo.textContent;
+            // Exemplo de texto expandido
+            const textoCompleto = `${textoResumido} Esta é a versão completa do artigo. Aqui você encontra detalhes aprofundados sobre a tecnologia, boas práticas de código, exemplos práticos do dia a dia e dicas de como aplicar essa ferramenta em seus projetos de desenvolvimento web.`;
+            let expandido = false;
+
+            btnLerMais.addEventListener('click', () => {
+                expandido = !expandido;
+                if (expandido) {
+                    paragrafo.textContent = textoCompleto;
+                    btnLerMais.textContent = 'Ler menos';
+                } else {
+                    paragrafo.textContent = textoResumido;
+                    btnLerMais.textContent = 'Ler mais';
+                }
+            });
+        }
+
+        // --- Ação: Botão Curtir ---
+        if (btnCurtir && contadorCurtir) {
+            btnCurtir.addEventListener('click', () => {
+                let num = parseInt(contadorCurtir.textContent, 10) || 0;
+                contadorCurtir.textContent = num + 1;
+            });
+        }
+
+        // --- Ação: Botão Não Curtir ---
+        if (btnNaoCurtir && contadorNaoCurtir) {
+            btnNaoCurtir.addEventListener('click', () => {
+                let num = parseInt(contadorNaoCurtir.textContent, 10) || 0;
+                contadorNaoCurtir.textContent = num + 1;
+            });
+        }
+
+        // --- Ação: Enviar Comentário ---
+        function adicionarComentario() {
+            if (!inputComentario || !listaComentarios) return;
             
-            // Se o botão "não curtir" estava ativo, remove
-            if (btnNaoCurtir.classList.contains('ativo')) {
-                let naoCurtidas = parseInt(contadorNaoCurtir.textContent);
-                naoCurtidas--;
-                contadorNaoCurtir.textContent = naoCurtidas;
-                btnNaoCurtir.classList.remove('ativo');
+            const texto = inputComentario.value.trim();
+            if (texto !== '') {
+                const novoComentario = document.createElement('div');
+                novoComentario.classList.add('comentario-item');
+                novoComentario.textContent = texto;
+                
+                listaComentarios.appendChild(novoComentario);
+                inputComentario.value = '';
+                
+                // Rola a lista de comentários para o último comentário enviado
+                listaComentarios.scrollTop = listaComentarios.scrollHeight;
             }
         }
-        contadorCurtir.textContent = curtidas;
-    });
 
-    // Lógica de Não Curtir
-    btnNaoCurtir.addEventListener('click', () => {
-        let naoCurtidas = parseInt(contadorNaoCurtir.textContent);
-        
-        if (btnNaoCurtir.classList.contains('ativo')) {
-            naoCurtidas--;
-            btnNaoCurtir.classList.remove('ativo');
-        } else {
-            naoCurtidas++;
-            btnNaoCurtir.classList.add('ativo');
-            
-            // Se o botão "curtir" estava ativo, remove
-            if (btnCurtir.classList.contains('ativo')) {
-                let curtidas = parseInt(contadorCurtir.textContent);
-                curtidas--;
-                contadorCurtir.textContent = curtidas;
-                btnCurtir.classList.remove('ativo');
-            }
+        if (btnEnviar) {
+            btnEnviar.addEventListener('click', adicionarComentario);
         }
-        contadorNaoCurtir.textContent = naoCurtidas;
-    });
 
-    // Lógica para Adicionar Comentários
-    btnEnviarComentario.addEventListener('click', () => {
-        const textoComentario = inputComentario.value.trim();
-
-        if (textoComentario !== "") {
-            // Cria um novo elemento para o comentário
-            const novoComentario = document.createElement('div');
-            novoComentario.classList.add('comentario-item');
-            novoComentario.textContent = textoComentario;
-
-            // Adiciona o comentário na lista do artigo correspondente
-            listaComentarios.appendChild(novoComentario);
-
-            // Limpa o input
-            inputComentario.value = "";
-        }
-    });
-
-    // Permitir enviar comentário pressionando a tecla "Enter"
-    inputComentario.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            btnEnviarComentario.click();
+        if (inputComentario) {
+            inputComentario.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    adicionarComentario();
+                }
+            });
         }
     });
 });
