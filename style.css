@@ -1,4 +1,6 @@
-/* Variáveis de Cores (Modo Claro Padrão) */
+/* ========================================================
+   1. VARIÁVEIS DE CORES (MODO CLARO E ESCURO)
+   ======================================================== */
 :root {
     --bg-color: #f8fafc;
     --card-bg: #ffffff;
@@ -10,7 +12,6 @@
     --input-bg: #f1f5f9;
 }
 
-/* Variáveis para o Modo Escuro */
 body.dark-mode {
     --bg-color: #0f172a;
     --card-bg: #1e293b;
@@ -22,7 +23,9 @@ body.dark-mode {
     --input-bg: #0f172a;
 }
 
-/* Estilos Globais */
+/* ========================================================
+   2. ESTILOS GLOBAIS E ESTRUTURA
+   ======================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -39,7 +42,9 @@ body {
     min-height: 100vh;
 }
 
-/* Navbar Moderna */
+/* ========================================================
+   3. BARRA DE NAVEGAÇÃO (NAVBAR)
+   ======================================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -70,6 +75,7 @@ body {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 500;
+    cursor: pointer;
 }
 
 .nav-links a:hover, .nav-links a.active {
@@ -83,9 +89,12 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
+    color: var(--text-color);
 }
 
-/* Banner de Destaque */
+/* ========================================================
+   4. BANNER DE DESTAQUE E CONTEÚDO DINÂMICO
+   ======================================================== */
 .banner {
     background: linear-gradient(135deg, var(--primary-color), #818cf8);
     color: #ffffff;
@@ -103,7 +112,16 @@ body {
     opacity: 0.9;
 }
 
-/* Grid de Artigos */
+.secao-dinamica {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+/* ========================================================
+   5. GRID DE ARTIGOS (CARDS)
+   ======================================================== */
 .container-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -111,6 +129,7 @@ body {
     padding: 3rem 5%;
     max-width: 1300px;
     margin: 0 auto;
+    width: 100%;
     flex: 1;
 }
 
@@ -121,6 +140,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
@@ -130,6 +150,7 @@ body {
 }
 
 .tag {
+    display: inline-block;
     background-color: var(--input-bg);
     color: var(--primary-color);
     font-size: 0.75rem;
@@ -166,7 +187,9 @@ body {
     color: #ffffff;
 }
 
-/* Seção de Interações (Curtir, Comentários) */
+/* ========================================================
+   6. SEÇÃO DE INTERAÇÕES (CURTIDAS E COMENTÁRIOS)
+   ======================================================== */
 .interacoes {
     border-top: 1px solid var(--border-color);
     padding: 1rem 1.5rem;
@@ -243,7 +266,9 @@ body {
     background-color: var(--primary-hover);
 }
 
-/* Rodapé */
+/* ========================================================
+   7. RODAPÉ
+   ======================================================== */
 footer {
     text-align: center;
     padding: 1.5rem;
@@ -251,4 +276,5 @@ footer {
     border-top: 1px solid var(--border-color);
     color: var(--text-muted);
     font-size: 0.9rem;
+    margin-top: auto;
 }

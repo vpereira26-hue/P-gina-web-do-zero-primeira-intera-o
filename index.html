@@ -1,39 +1,242 @@
-<!-- Atualize a tag <nav> na barra de navegação -->
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Meu Blog Moderno</title>
+
+<!-- Importando a fonte Inter do Google Fonts para um visual moderno -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+
+<body>
+
+
+
+<header class="navbar">
+
+<div class="logo">Meu<span>Blog</span></div>
+
 <nav class="nav-links">
-    <a href="#" class="nav-item active" data-target="inicio">Início</a>
-    <a href="#" class="nav-item" data-target="artigos">Artigos</a>
-    <a href="#" class="nav-item" data-target="sobre">Sobre</a>
-    <a href="#" class="nav-item" data-target="contato">Contato</a>
+
+<a href="#" class="active">Início</a>
+
+<a href="#">Artigos</a>
+
+<a href="#">Sobre</a>
+
+<a href="#">Contato</a>
+
 </nav>
 
-<!-- Conteúdo das Páginas/Seções -->
-<div id="inicio" class="aba-conteudo ativa">
-    <!-- Cole aqui a <section class="banner"> e o <main class="container-grid"> originais -->
+<button id="modo" class="btn-modo">🌙</button>
+
+</header>
+
+
+
+<section class="banner">
+
+<div class="banner-content">
+
+<h1>Explorando o Desenvolvimento Web</h1>
+
+<p>Artigos semanais sobre HTML, CSS, JavaScript e muito mais.</p>
+
 </div>
 
-<div id="artigos" class="aba-conteudo" style="display: none;">
-    <section class="banner">
-        <div class="banner-content">
-            <h1>Todos os Artigos</h1>
-            <p>Explore o arquivo completo de publicações.</p>
-        </div>
-    </section>
+</section>
+
+
+
+<main class="container-grid">
+
+
+
+<article class="card">
+
+<div class="card-content">
+
+<span class="tag">HTML</span>
+
+<h2>Meu primeiro artigo</h2>
+
+<p>Este é um exemplo de postagem de blog criada com HTML semântico. Aqui você poderá escrever seus textos e compartilhar conhecimento.</p>
+
+<button class="btn-ler-mais">Ler mais</button>
+
 </div>
 
-<div id="sobre" class="aba-conteudo" style="display: none;">
-    <section class="banner">
-        <div class="banner-content">
-            <h1>Sobre o Autor</h1>
-            <p>Desenvolvido por Victor em 2026. Espaço dedicado ao aprendizado de tecnologias web.</p>
-        </div>
-    </section>
+
+
+<div class="interacoes">
+
+<div class="botoes-feedback">
+
+<button class="btn-curtir">👍 <span class="contador-curtir">0</span></button>
+
+<button class="btn-nao-curtir">👎 <span class="contador-nao-curtir">0</span></button>
+
 </div>
 
-<div id="contato" class="aba-conteudo" style="display: none;">
-    <section class="banner">
-        <div class="banner-content">
-            <h1>Entre em Contato</h1>
-            <p>Envie uma mensagem ou conecte-se através das redes sociais.</p>
-        </div>
-    </section>
+
+
+<div class="secao-comentarios">
+
+<h4>Comentários</h4>
+
+<div class="lista-comentarios"></div>
+
+<div class="form-comentario">
+
+<input type="text" placeholder="Escreva um comentário..." class="input-comentario">
+
+<button class="btn-enviar-comentario">Enviar</button>
+
 </div>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<article class="card">
+
+<div class="card-content">
+
+<span class="tag">CSS</span>
+
+<h2>Aprendendo CSS</h2>
+
+<p>O CSS é responsável por transformar estruturas simples em interfaces bonitas, responsivas e organizadas usando Flexbox e Grid.</p>
+
+<button class="btn-ler-mais">Ler mais</button>
+
+</div>
+
+
+
+<div class="interacoes">
+
+<div class="botoes-feedback">
+
+<button class="btn-curtir">👍 <span class="contador-curtir">0</span></button>
+
+<button class="btn-nao-curtir">👎 <span class="contador-nao-curtir">0</span></button>
+
+</div>
+
+
+
+<div class="secao-comentarios">
+
+<h4>Comentários</h4>
+
+<div class="lista-comentarios"></div>
+
+<div class="form-comentario">
+
+<input type="text" placeholder="Escreva um comentário..." class="input-comentario">
+
+<button class="btn-enviar-comentario">Enviar</button>
+
+</div>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<article class="card">
+
+<div class="card-content">
+
+<span class="tag">JavaScript</span>
+
+<h2>JavaScript Moderno</h2>
+
+<p>Com JavaScript podemos criar animações dinâmicas, manipular o DOM, validar formulários e construir aplicações web completas.</p>
+
+<button class="btn-ler-mais">Ler mais</button>
+
+</div>
+
+
+
+<div class="interacoes">
+
+<div class="botoes-feedback">
+
+<button class="btn-curtir">👍 <span class="contador-curtir">0</span></button>
+
+<button class="btn-nao-curtir">👎 <span class="contador-nao-curtir">0</span></button>
+
+</div>
+
+
+
+<div class="secao-comentarios">
+
+<h4>Comentários</h4>
+
+<div class="lista-comentarios"></div>
+
+<div class="form-comentario">
+
+<input type="text" placeholder="Escreva um comentário..." class="input-comentario">
+
+<button class="btn-enviar-comentario">Enviar</button>
+
+</div>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+</main>
+
+
+
+<footer>
+
+<p>&copy; 2026 - Meu Blog | Desenvolvido com dedicação por Victor</p>
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+
+
+</html> 
+
